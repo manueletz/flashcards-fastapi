@@ -1,0 +1,16 @@
+--levantar el BACKEND (FastAPI) en un terminal
+cd "/Users/Gerente/Dev/flashcards/backend_flash"
+conda activate flashapi
+uvicorn main:app --reload
+
+--abrir Swagger UI
+http://localhost:8000/docs
+
+--endpoint
+http://localhost:8000/cards
+http://localhost:8000/test-db
+
+--levantar el FRONTEND en otra terminal
+cd "/Users/Gerente/Dev/flashcards/frontend_flash"
+python3 -m http.server 5500
+

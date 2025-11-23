@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Entornos
+env/
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Wallet de Oracle (por seguridad)
+wallet/
+*.zip
+tnsnames.ora
+sqlnet.ora

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flashcards Dracula</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <div class="title">
+          <span class="icon">🧠</span>
+          <span>Flashcards – Dracula Theme</span>
+        </div>
+        <div class="stats" id="stats">
+          <!-- Stats dinámicas -->
+        </div>
+      </div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        Focus mode
+      </div>
+    </header>
+
+    <div class="main">
+      <!-- Card principal -->
+      <section class="card">
+        <div class="card-header-row">
+          <div>
+            <div class="card-label">Current card</div>
+          </div>
+          <div id="statusBadge" class="badge-status new">New</div>
+        </div>
+
+        <div class="card-word" id="wordEn">loading...</div>
+        <div class="card-translation hidden" id="wordEs">...</div>
+        <div class="hint" id="hint">
+          Click “Show translation” or press again to hide. Use the filters to study only new words.
+        </div>
+
+        <div class="controls">
+          <button id="btnPrev" class="btn-secondary" type="button">
+            <span class="icon">⏮️</span><span>Previous (random)</span>
+          </button>
+          <button id="btnNext" class="btn-primary" type="button">
+            <span class="icon">⏭️</span><span>Next (random)</span>
+          </button>
+          <button id="btnToggleTranslation" class="btn-secondary" type="button">
+            <span class="icon">👁️</span><span>Show translation</span>
+          </button>
+          <button id="btnToggleLearned" class="btn-secondary" type="button">
+            <span class="icon">✅</span><span>Mark as learned</span>
+          </button>
+          <button id="btnSpeak" class="btn-secondary" type="button">
+            <span class="icon">🔊</span><span>Speak</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Panel lateral -->
+      <aside class="side-panel">
+        <div>
+          <div class="side-title">Study filters</div>
+          <div class="filter-group">
+            <button class="filter-chip active" data-filter="all" type="button">
+              All (10)
+            </button>
+            <button class="filter-chip" data-filter="new" type="button">
+              New
+            </button>
+            <button class="filter-chip" data-filter="learned" type="button">
+              Learned
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div class="small-label">Progress</div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="side-footer">
+            <span id="progressText">0 / 10 learned</span>
+            <span class="pill" id="filterInfo">Filter: all</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="small-label">Session tips</div>
+          <ul style="margin-top: 4px; padding-left: 16px; color: var(--comment); line-height: 1.4;">
+            <li>Press “Next” to get a random card.</li>
+            <li>Hide the translation and try to remember it first.</li>
+            <li>Use “Speak” to listen and repeat out loud.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top: 4px; display: flex; justify-content: flex-end;">
+          <button id="btnReset" class="btn-danger" type="button">
+            <span class="icon">♻️</span><span>Reset progress</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer">
+      Dracula sample · 10 words · LocalStorage safe
+    </div>
+  </div>
+
+  <!-- JS externo -->
+  <script src="js/main.js"></script>
+</body>
+</html>
