@@ -268,18 +268,21 @@ function speakCurrentWord() {
 //   });
 // });
 
-const API_URL = "http://localhost:8000";
+//const API_URL = "http://localhost:8000";
+const API_BASE_URL =
+  window.FLASHCARDS_CONFIG?.API_BASE_URL || "http://localhost:8000";
+
 
 // --- Funciones API ---
 
 async function apiListCards() {
-  const res = await fetch(`${API_URL}/cards`);
+  const res = await fetch(`${API_BASE_URL}/cards`);
   if (!res.ok) throw new Error("Error al leer /cards");
   return await res.json(); // array de { id, english, spanish, created_at }
 }
 
 async function apiCreateCard(english, spanish) {
-  const res = await fetch(`${API_URL}/cards`, {
+  const res = await fetch(`${API_BASE_URL}/cards`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ english, spanish }),
@@ -292,7 +295,7 @@ async function apiCreateCard(english, spanish) {
 }
 
 async function apiDeleteCard(id) {
-  const res = await fetch(`${API_URL}/cards/${id}`, {
+  const res = await fetch(`${API_BASE_URL}/cards/${id}`, {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("Error al borrar card");
@@ -311,13 +314,19 @@ async function initApp() {
       learned: false // por ahora, porque el backend aún no guarda esto
     }));
 
-    console.log("Cards listas para usar:", cards);
+    // Guardamos una copia en localStorage como caché
+    saveCards();
 
-    // NO llamamos renderAll() aquí directamente; lo hará el init global
+    console.log("Usando backend (Oracle). Cards:", cards);
   } catch (err) {
-    console.error("Error cargando cards desde el backend:", err);
+    console.warn("Backend NO disponible. Usando localStorage.", err);
+
+    // Aquí activamos el modo offline simple
+    loadCards();
+    console.log("Cards cargadas desde localStorage:", cards);
   }
 }
+
 
 // --- Init nuevo: backend + UI ---
 window.addEventListener("load", async () => {

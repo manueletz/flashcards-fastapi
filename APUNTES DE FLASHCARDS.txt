@@ -14,3 +14,76 @@ http://localhost:8000/test-db
 cd "/Users/Gerente/Dev/flashcards/frontend_flash"
 python3 -m http.server 5500
 
+--crear el docker de frontend_flash
+--crear el archivo Dockerfile
+cd /dv/flashcards/frontend_flash
+touch Dockerfile
+
+--copiar dentro del archivo lo siguiente
+FROM nginx:alpine
+RUN rm -rf /usr/share/nginx/html/*
+COPY . /usr/share/nginx/html/
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+
+----construir la imagen del docker frontend_flash
+docker build -t flashcards-frontend .
+
+--correr el contenedor frontend_flash
+docker run -d -p 8080:80 --name flashcards-frontend-container flashcards-frontend
+
+--parar el contenedor frontend_flash
+docker stop flashcards-frontend-container
+
+--volverlo a iniciar fronted_flash
+docker start flashcards-frontend-container
+
+--crear el docker de backend_flash
+--crear el archivo Dockerfile
+cd /dv/flashcards/backend_flash
+touch Dockerfile
+
+--copiar dentro del archivo lo siguiente
+FROM python:3.12-slim
+
+# Carpeta interna donde vivirá tu backend dentro del contenedor
+WORKDIR /app
+
+# Copiamos primero los requirements
+COPY requirements.txt .
+
+# Instalamos dependencias
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiamos todo el código del backend
+COPY . .
+
+# Exponemos el puerto 8000
+EXPOSE 8000
+
+# Iniciamos FastAPI con Uvicorn
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+--crea un archivo llamado requeriments.txt
+cd /dv/flashcards/backend_flash
+
+--agregar esto
+fastapi
+uvicorn
+oracledb
+
+--construir la imagen del docker backend_frash
+docker build -t flashcards-backend .
+
+--correr el docker backend_flash
+docker run -d -p 8000:8000 --name flashcards-backend flashcards-backend
+
+--parar el contenedor backend_flash
+docker stop flashcards-backend-container
+
+--volverlo a iniciar backend_flash
+docker start flashcards-backend-container
+
+
+
+

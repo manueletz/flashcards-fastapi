@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend_flash
+    container_name: flashcards-backend
+    env_file: .env
+    volumes:
+      - ./wallet:/wallet:ro
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build: ./frontend_flash
+    container_name: flashcards-frontend
+    env_file: .env
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
